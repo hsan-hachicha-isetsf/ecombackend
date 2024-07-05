@@ -30,3 +30,4 @@ app.use("/api/scategories",scategorieRouter)
 app.use("/api/articles",articleRouter)
 app.listen(process.env.PORT)
 console.log("application executée sur le port " + process.env.PORT)
+module.exports = app;
