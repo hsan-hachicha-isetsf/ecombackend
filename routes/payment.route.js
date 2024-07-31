@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
            
             return {
               price_data: {
-                currency: "TND",
+                currency: "usd",
                 product_data: {
                   name: item.designation,
                 },
