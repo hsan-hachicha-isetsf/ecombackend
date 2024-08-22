@@ -1,8 +1,10 @@
 const express=require("express")
 const Categorie=require("../models/categorie")
+const { verifyToken } = require("../middleware/verify-token")
+const { authorizeRoles } = require("../middleware/authorizeRoles")
 const router=express.Router()
 
-router.post("/",async(req,res)=>{
+router.post("/",verifyToken,authorizeRoles("admin","visiteur"), async(req,res)=>{
 const cat1=new Categorie(req.body)
 try {
     await cat1.save()
@@ -13,7 +15,7 @@ try {
 }
 })
 
-router.put("/:id",async(req,res)=>{
+router.put("/:id",verifyToken,async(req,res)=>{
     try {
         const cat1 = await Categorie.findByIdAndUpdate(
             req.params.id,
@@ -26,7 +28,7 @@ router.put("/:id",async(req,res)=>{
     }
 })
 
-router.get('/',async(req,res)=>{
+router.get('/',verifyToken,async(req,res)=>{
 
     try {
         const cat= await Categorie.find({}, null, {sort: {'_id': -1}})
